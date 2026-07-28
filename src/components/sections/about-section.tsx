@@ -20,8 +20,8 @@ export function AboutSection({ showCta = true }: { showCta?: boolean }) {
             <div className="absolute -inset-2 rotate-2 rounded-3xl bg-gradient-to-r from-blue-900/30 to-zinc-800/30 transition-transform duration-500 group-hover:rotate-1 sm:-inset-4" />
             <div className="relative h-[500px] w-full overflow-hidden rounded-2xl shadow-2xl shadow-black">
               <img
-                src="/images/workshop.webp"
-                alt="XM Bilverkstad – bilverkstad i Handen, Haninge"
+                src="/images/om-oss.webp"
+                alt="Bilnycklar lämnas över utanför XM Bilverkstad i Handen, Haninge"
                 loading="lazy"
                 className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
