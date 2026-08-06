@@ -55,6 +55,11 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link to="/sa-fungerar-det" className="hover:text-white">
+                Följ din bil i mobilen
+              </Link>
+            </li>
           </ul>
         </div>
 

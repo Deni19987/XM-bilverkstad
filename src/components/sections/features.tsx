@@ -1,4 +1,4 @@
-import { Award, Car, Tag, Timer } from 'lucide-react'
+import { Award, BellRing, Car, FileCheck2, Tag, Timer } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 const features: Array<{ icon: LucideIcon; title: string; body: string }> = [
@@ -22,6 +22,16 @@ const features: Array<{ icon: LucideIcon; title: string; body: string }> = [
     title: 'Alla Bilmärken',
     body: 'Vi servar och reparerar alla bilmärken – din nybilsgaranti gäller hos oss.',
   },
+  {
+    icon: BellRing,
+    title: 'Notis Vid Varje Steg',
+    body: 'Följ bilen i mobilen från inlämning till klar. Du får en avisering varje gång något händer.',
+  },
+  {
+    icon: FileCheck2,
+    title: 'Du Godkänner Först',
+    body: 'Tilläggsarbete visas med bilder och pris i mobilen. Inget utförs innan du tryckt godkänn.',
+  },
 ]
 
 export function Features() {
@@ -30,7 +40,7 @@ export function Features() {
       <div className="site-container relative z-10">
         <h2 className="sr-only">Varför välja XM Bilverkstad i Haninge</h2>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
             <div
               key={feature.title}

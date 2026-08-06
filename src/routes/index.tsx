@@ -1,10 +1,12 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { ArrowRight, BellRing } from 'lucide-react'
 
 import { AboutSection } from '@/components/sections/about-section'
 import { ContactSection } from '@/components/sections/contact-section'
 import { Features } from '@/components/sections/features'
 import { ServicesSection } from '@/components/sections/services-section'
 import { Testimonials } from '@/components/sections/testimonials'
+import { TrackingSection } from '@/components/sections/tracking-section'
 import { Button } from '@/components/ui/button'
 import { featuredServices } from '@/data/services'
 import { site } from '@/data/site'
@@ -63,6 +65,17 @@ function Hero() {
             <Link to="/tjanster">Våra Tjänster</Link>
           </Button>
         </div>
+
+        <Link
+          to="/sa-fungerar-det"
+          className="group mt-8 inline-flex items-center gap-3 text-sm text-zinc-400 transition-colors hover:text-zinc-200"
+        >
+          <BellRing className="size-4 shrink-0 text-blue-500" />
+          <span>
+            Nyhet: följ jobbet i mobilen och godkänn kostnaden innan vi börjar
+          </span>
+          <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
+        </Link>
       </div>
     </section>
   )
@@ -73,6 +86,7 @@ function HomePage() {
     <>
       <Hero />
       <Features />
+      <TrackingSection />
       <AboutSection />
       <ServicesSection items={featuredServices} />
       <Testimonials />
