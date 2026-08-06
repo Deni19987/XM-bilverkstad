@@ -1,9 +1,18 @@
 import { useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { ArrowLeft, ArrowRight, CalendarDays, Car, CheckCircle2, User, Wrench } from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowRight,
+  BellRing,
+  CalendarDays,
+  Car,
+  CheckCircle2,
+  User,
+  Wrench,
+} from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -121,6 +130,24 @@ function BookingPage() {
               {submitted.date} kl. {submitted.time}. Vi hör av oss på {submitted.phone}{' '}
               för att bekräfta tiden. Vid akuta ärenden, ring oss på {site.phone}.
             </p>
+
+            <div className="mb-8 rounded-2xl border border-white/5 bg-zinc-950/60 p-6 text-left">
+              <div className="mb-3 flex items-center gap-3">
+                <BellRing className="size-5 shrink-0 text-blue-500" />
+                <h2 className="font-bold text-white">Sedan följer du jobbet i mobilen</h2>
+              </div>
+              <p className="text-sm leading-relaxed text-zinc-400">
+                När du lämnar in bilen skickar vi ett SMS till {submitted.phone} med en
+                personlig länk till ditt ärende. Där ser du varje steg i realtid, godkänner
+                eventuellt tilläggsarbete med bilder och pris, och chattar direkt med
+                mekanikern.{' '}
+                <Link to="/sa-fungerar-det" className="text-blue-500 hover:underline">
+                  Så fungerar det
+                </Link>
+                .
+              </p>
+            </div>
+
             <Button
               size="lg"
               onClick={() => {

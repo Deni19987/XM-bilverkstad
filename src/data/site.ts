@@ -28,6 +28,7 @@ export const site = {
 
 export const navigation = [
   { label: 'Tjänster', to: '/tjanster' },
+  { label: 'Så fungerar det', to: '/sa-fungerar-det' },
   { label: 'Boka', to: '/boka' },
   { label: 'Om oss', to: '/om-oss' },
   { label: 'Omdömen', to: '/omdomen' },
