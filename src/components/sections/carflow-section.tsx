@@ -1,178 +1,224 @@
-import { Bell, ChevronRight, Flag, Info, Key, MessageSquare, Search, Settings, Wrench } from 'lucide-react'
+import {
+  BellRing,
+  Car,
+  CircleCheck,
+  Cog,
+  FileText,
+  KeyRound,
+  MessageSquareText,
+  Search,
+  ThumbsUp,
+  Wrench,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { Car, CheckCircle2, Check } from 'lucide-react'
+
+import { LogoMark } from '@/components/logo'
 
 /**
  * Carflow — statusuppdateringar.
  *
- * Sektionen ligger direkt under hero eftersom det är den tydligaste skillnaden
- * mot en vanlig verkstad, och samtidigt något ingen känner till innan det
- * förklarats. Punkterna följer kundens egen ordning: påminnelse, sms-länk vid
- * inlämning, godkännande av tilläggsarbete och besked när bilen är klar.
- * Telefonen visar en vy ur systemet, ritad i markup så den håller i alla
- * skärmbredder.
+ * Sektionen ligger efter prislistan: när besökaren väl vet vad ett jobb
+ * kostar är nästa fråga hur man följer det. Punkterna följer kundens egen
+ * ordning, och telefonen visar kundvyn som den faktiskt ser ut.
  */
 const promises: Array<{ icon: LucideIcon; title: string; body: string }> = [
   {
-    icon: Bell,
+    icon: BellRing,
     title: 'Påminnelse om din bokade tid',
     body: 'Ett sms innan besöket, så att tiden inte hinner glömmas bort.',
   },
   {
-    icon: MessageSquare,
+    icon: MessageSquareText,
     title: 'Sms-länk direkt vid inlämning',
     body: 'Du behöver inte ringa och fråga hur det går – statusen är alltid uppdaterad.',
   },
   {
-    icon: Info,
+    icon: ThumbsUp,
     title: 'Godkänn tilläggsarbete med ett klick',
     body: 'Hittar vi något mer får du pris och förklaring i telefonen. Inget görs innan du sagt ja.',
   },
   {
-    icon: Key,
+    icon: KeyRound,
     title: 'Besked när bilen är klar att hämta',
     body: 'Du vet exakt när det är dags – och vad som blev gjort under tiden.',
   },
 ]
 
+/**
+ * Kundvyn är en ljus app inuti en mörk sektion, så färgerna i telefonen är
+ * satta som råa värden i stället för sajtens tokens. Turkosen är den mörkare
+ * varianten som håller kontrasten mot vitt; gult är en semantisk varning och
+ * ska förbli gult oavsett vilken accentfärg sajten har.
+ */
+type Tone = 'done' | 'attention' | 'upcoming'
+
+const tones: Record<Tone, { icon: string; title: string; body: string }> = {
+  done: {
+    icon: 'bg-[#e3f2f6] text-[#0e7f9b] ring-[#c5e6ef]',
+    title: 'text-[#14181b]',
+    body: 'text-[#6b7278]',
+  },
+  attention: {
+    icon: 'bg-[#fef6e7] text-[#b7791f] ring-[#f6dfae]',
+    title: 'text-[#14181b]',
+    body: 'text-[#6b7278]',
+  },
+  upcoming: {
+    icon: 'bg-[#f6f7f8] text-[#b9bec3] ring-[#e9ebed]',
+    title: 'text-[#8b9197]',
+    body: 'text-[#8b9197]',
+  },
+}
+
 type FeedItem = {
   icon: LucideIcon
+  tone: Tone
   title: string
   body: string
-  time: string
-  done?: boolean
-  approved?: boolean
-  /** Steget som pågår just nu. Pricken pulserar för att visa det. */
-  live?: boolean
+  meta: string
+  badge?: string
 }
 
 const feed: Array<FeedItem> = [
   {
     icon: Car,
+    tone: 'done',
     title: 'Bil inlämnad',
     body: 'Din bil har tagits emot hos oss.',
-    time: '8 sep. 2025 08:12',
+    meta: 'Idag 17:51',
   },
   {
     icon: Search,
+    tone: 'done',
     title: 'Felsökning påbörjad',
     body: 'Vi har påbörjat felsökning och diagnostisering av ditt fordon.',
-    time: '8 sep. 2025 09:40',
+    meta: 'Idag 19:19',
   },
   {
     icon: Wrench,
+    tone: 'done',
     title: 'Arbete påbörjat',
     body: 'Inledande inspektion klar. Vi påbörjar nu det rekommenderade arbetet.',
-    time: '8 sep. 2025 10:25',
+    meta: 'Idag 20:04',
   },
   {
-    icon: CheckCircle2,
+    icon: FileText,
+    tone: 'attention',
     title: 'Offert',
-    body: 'Offerten är godkänd. Vi fortsätter med arbetet.',
-    time: '8 sep. 2025 11:05',
-    done: true,
-    approved: true,
+    badge: 'Åtgärd krävs',
+    body: 'Vi hittade något mer som behöver åtgärdas. Se pris och förklaring nedan.',
+    meta: 'Idag 20:44',
   },
   {
-    icon: Settings,
+    icon: Cog,
+    tone: 'upcoming',
     title: 'Pågående arbete',
-    body: 'Arbete pågår just nu på ditt fordon.',
-    time: '8 sep. 2025 13:15',
-    live: true,
+    body: 'Startar så fort du svarat på offerten.',
+    meta: 'Kommande steg',
   },
   {
-    icon: Flag,
-    title: 'Jobb klart',
-    body: 'Allt arbete är klart. Din bil är redo att hämtas.',
-    time: '9 sep. 2025 10:40',
-    done: true,
+    icon: CircleCheck,
+    tone: 'upcoming',
+    title: 'Klar att hämta',
+    body: 'Du får ett sms direkt när bilen är redo att hämtas.',
+    meta: 'Kommande steg',
   },
 ]
 
 function StatusPhone() {
   return (
-    <div className="mx-auto w-full max-w-[330px] rounded-[38px] border border-hairline bg-[#080a0d] p-2.5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)]">
-      <div className="flex h-5 items-center justify-center">
-        <span className="block h-1.5 w-[74px] rounded-full bg-[#20252c]" />
+    <figure className="m-0 justify-self-center">
+      <div className="relative w-[288px] rounded-[2.75rem] bg-[#0a0c0e] p-2.5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)] ring-1 ring-white/10">
+        <div className="relative overflow-hidden rounded-[2.25rem] bg-white">
+          <span className="absolute top-0 left-1/2 z-10 h-5 w-24 -translate-x-1/2 rounded-b-[16px] bg-[#0a0c0e]" />
+
+          <div className="h-[532px] overflow-hidden">
+            <div className="flex h-full flex-col bg-[#f6f7f8]">
+              <div className="bg-white px-4 pt-7 pb-3">
+                <p className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-[#8b9197] uppercase">
+                  <LogoMark className="h-4 w-4 text-[#0e7f9b]" />
+                  XM Bilverkstad
+                </p>
+                <p className="font-display mt-2 text-lg font-extrabold tracking-tight text-[#14181b] uppercase">
+                  ABC 123
+                </p>
+                <p className="text-[11px] text-[#6b7278]">Volvo V60</p>
+              </div>
+
+              <div className="flex gap-1 border-b border-[#e9ebed] bg-white px-3 pb-2">
+                <span className="rounded-full bg-[#14181b] px-3 py-1 text-[11px] font-semibold text-white">
+                  Uppdateringar
+                </span>
+                <span className="rounded-full px-3 py-1 text-[11px] font-semibold text-[#8b9197]">
+                  Chatt (2)
+                </span>
+              </div>
+
+              <div className="relative flex-1 overflow-hidden px-4 pt-4">
+                <ol>
+                  {feed.map((item, index) => {
+                    const tone = tones[item.tone]
+                    const isLast = index === feed.length - 1
+
+                    return (
+                      <li key={item.title} className="flex gap-3">
+                        <div className="flex flex-col items-center">
+                          <span
+                            className={`flex size-8 shrink-0 items-center justify-center rounded-full ring-1 ${tone.icon}`}
+                          >
+                            <item.icon className="size-[15px]" strokeWidth={2.2} />
+                          </span>
+                          {isLast ? null : item.tone === 'upcoming' ? (
+                            <span className="my-1 w-px flex-1 border-l border-dashed border-[#d9dde0]" />
+                          ) : (
+                            <span className="my-1 w-px flex-1 bg-[#d9dde0]" />
+                          )}
+                        </div>
+
+                        <div className={`min-w-0 flex-1 ${isLast ? 'pb-0' : 'pb-4'}`}>
+                          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                            <h3
+                              className={`font-display text-[13px] font-bold ${tone.title}`}
+                            >
+                              {item.title}
+                            </h3>
+                            {item.badge ? (
+                              <span className="rounded-full bg-[#fdecc8] px-2 py-0.5 text-[10px] font-semibold text-[#92600f]">
+                                {item.badge}
+                              </span>
+                            ) : null}
+                          </div>
+                          <p className={`mt-0.5 text-[11px] leading-snug ${tone.body}`}>
+                            {item.body}
+                          </p>
+                          <p className="mt-1 text-[10px] font-medium text-[#8b9197]">
+                            {item.meta}
+                          </p>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ol>
+
+                {/* Listan tonar ut mot underkanten så att det syns att den fortsätter. */}
+                <span className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#f6f7f8] to-transparent" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="overflow-hidden rounded-[30px] bg-white text-[#101a1f]">
-        <div className="px-4 pt-4 pb-3">
-          <p className="text-[0.95rem] font-semibold tracking-tight">ABC 123</p>
-          <p className="mt-0.5 text-[0.73rem] text-[#6e7f87]">Volvo V60</p>
-        </div>
-
-        <div className="mx-3 mb-2 grid grid-cols-2 gap-[3px] rounded-[9px] bg-[#f1f4f6] p-[3px]">
-          <span className="rounded-[7px] bg-white py-1.5 text-center text-[0.75rem] font-semibold shadow-[0_1px_2px_rgba(16,24,32,0.14)]">
-            Uppdateringar
-          </span>
-          <span className="py-1.5 text-center text-[0.75rem] font-medium text-[#6e7f87]">
-            Chatt (2)
-          </span>
-        </div>
-
-        <ol className="px-3 pt-0.5 pb-4">
-          {feed.map((item, index) => (
-            <li
-              key={item.title}
-              className="relative grid grid-cols-[9px_30px_1fr_10px] items-start gap-2.5 py-2.5 pl-0.5"
-            >
-              {index < feed.length - 1 ? (
-                <span className="absolute top-6 bottom-[-8px] left-[5px] w-px bg-[#e4eaee]" />
-              ) : null}
-
-              <span className="relative mt-[7px] size-[7px]">
-                {item.live ? (
-                  <span className="absolute inset-0 animate-ping rounded-full bg-[#0e7f9b] opacity-70" />
-                ) : null}
-                <span
-                  className={`absolute inset-0 rounded-full ${
-                    item.done ? 'bg-[#11916f]' : 'bg-[#0e7f9b]'
-                  }`}
-                />
-              </span>
-              <span
-                className={`grid size-[30px] place-items-center rounded-full ${
-                  item.done ? 'bg-[#e0f3ed] text-[#11916f]' : 'bg-[#e2f1f6] text-[#0e7f9b]'
-                }`}
-              >
-                <item.icon className="size-[15px]" strokeWidth={1.8} />
-              </span>
-              <span className="block">
-                <span className="block text-[0.79rem] font-semibold tracking-tight">
-                  {item.title}
-                </span>
-                <span className="mt-0.5 block text-[0.71rem] leading-snug text-[#6e7f87]">
-                  {item.body}
-                </span>
-                <span className="mt-1 block text-[0.68rem] tabular-nums text-[#6e7f87]">
-                  {item.time}
-                </span>
-                {item.approved ? (
-                  <>
-                    <span className="mt-1.5 inline-flex items-center gap-1 rounded-[5px] bg-[#e0f3ed] px-1.5 py-0.5 text-[0.66rem] font-semibold text-[#11916f]">
-                      <Check className="size-2.5" strokeWidth={2.6} />
-                      Godkänd
-                    </span>
-                    <span className="mt-1 block text-[0.7rem] font-semibold text-[#0e7f9b]">
-                      Visa detaljer →
-                    </span>
-                  </>
-                ) : null}
-              </span>
-              <ChevronRight className="mt-2 size-2.5 text-[#c3ced4]" strokeWidth={2} />
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
+      <figcaption className="mt-4 text-center text-xs text-ink-3">
+        Så här ser sms-länken ut när du öppnar den
+      </figcaption>
+    </figure>
   )
 }
 
 export function CarflowSection() {
   return (
-    <section className="border-y border-hairline bg-canvas-2 section-padding">
-      <div className="site-container grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-[70px]">
+    <section className="section-padding border-y border-hairline bg-canvas-2">
+      <div className="site-container grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_288px] lg:gap-[70px]">
         <div>
           <p className="eyebrow">Nyhet – Carflow</p>
           <h2 className="display mt-5 max-w-[14ch] text-4xl leading-[1.02] text-white md:text-5xl">
