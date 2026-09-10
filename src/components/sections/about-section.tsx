@@ -15,17 +15,20 @@ export function AboutSection({ showCta = true }: { showCta?: boolean }) {
   return (
     <section className="section-padding border-t border-hairline bg-canvas-2">
       <div className="site-container grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-        <div className="relative aspect-4/5 border border-hairline">
+        <Link
+          to="/om-oss"
+          className="group relative block aspect-4/5 overflow-hidden border border-hairline transition-colors duration-300 hover:border-brand/40"
+        >
           <img
             src="/images/om-oss.webp"
             alt={`Bilnycklar lämnas över utanför ${site.name} på ${site.address.street} i ${site.address.city}`}
             loading="lazy"
-            className="absolute inset-0 size-full object-cover brightness-[0.92] saturate-[0.8]"
+            className="absolute inset-0 size-full object-cover brightness-[0.92] saturate-[0.8] transition-[transform,filter] duration-700 ease-out group-hover:scale-105 group-hover:brightness-100 group-hover:saturate-100"
           />
-          <span className="numeric absolute -bottom-px -left-px border border-hairline bg-canvas-2 px-4 py-2.5 text-[0.7rem] tracking-[0.08em] text-ink-2 uppercase">
+          <span className="numeric absolute bottom-0 left-0 border-t border-r border-hairline bg-canvas-2 px-4 py-2.5 text-[0.7rem] tracking-[0.08em] text-ink-2 uppercase transition-colors duration-300 group-hover:text-brand">
             {site.address.street}, {site.address.city}
           </span>
-        </div>
+        </Link>
 
         <div>
           <p className="eyebrow">Om verkstaden</p>

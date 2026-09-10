@@ -42,6 +42,8 @@ type FeedItem = {
   time: string
   done?: boolean
   approved?: boolean
+  /** Steget som pågår just nu. Pricken pulserar för att visa det. */
+  live?: boolean
 }
 
 const feed: Array<FeedItem> = [
@@ -76,6 +78,7 @@ const feed: Array<FeedItem> = [
     title: 'Pågående arbete',
     body: 'Arbete pågår just nu på ditt fordon.',
     time: '8 sep. 2025 13:15',
+    live: true,
   },
   {
     icon: Flag,
@@ -118,11 +121,16 @@ function StatusPhone() {
                 <span className="absolute top-6 bottom-[-8px] left-[5px] w-px bg-[#e4eaee]" />
               ) : null}
 
-              <span
-                className={`mt-[7px] size-[7px] rounded-full ${
-                  item.done ? 'bg-[#11916f]' : 'bg-[#0e7f9b]'
-                }`}
-              />
+              <span className="relative mt-[7px] size-[7px]">
+                {item.live ? (
+                  <span className="absolute inset-0 animate-ping rounded-full bg-[#0e7f9b] opacity-70" />
+                ) : null}
+                <span
+                  className={`absolute inset-0 rounded-full ${
+                    item.done ? 'bg-[#11916f]' : 'bg-[#0e7f9b]'
+                  }`}
+                />
+              </span>
               <span
                 className={`grid size-[30px] place-items-center rounded-full ${
                   item.done ? 'bg-[#e0f3ed] text-[#11916f]' : 'bg-[#e2f1f6] text-[#0e7f9b]'

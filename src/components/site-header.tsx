@@ -22,8 +22,8 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="border-b border-transparent py-1 text-[0.87rem] text-ink-2 transition-colors hover:text-ink"
-              activeProps={{ className: 'border-brand text-ink' }}
+              className="relative py-1 text-[0.87rem] text-ink-2 transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-px after:h-px after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-300 hover:text-ink hover:after:scale-x-100"
+              activeProps={{ className: 'text-ink after:scale-x-100' }}
             >
               {item.label}
             </Link>

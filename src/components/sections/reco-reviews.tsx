@@ -54,7 +54,7 @@ export function RecoReviews() {
             href={recoProfile.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-4 border border-hairline px-4 py-3 transition-colors hover:border-hairline-strong"
+            className="group flex items-center gap-4 border border-hairline px-4 py-3 transition-colors duration-300 hover:border-brand/40"
           >
             <RecoWordmark />
             <span className="border-l border-hairline pl-4">
@@ -70,20 +70,27 @@ export function RecoReviews() {
 
         <ul className="grid gap-x-11 gap-y-10 pt-11 md:grid-cols-2 lg:grid-cols-3">
           {recoReviews.map((review) => (
-            <li key={`${review.name}-${review.date}`} className="border-t-2 border-hairline-strong pt-5">
-              <div className="flex items-center justify-between gap-4">
-                <Rating value={review.rating} />
-                <RecoWordmark className="h-4 w-auto opacity-70" />
-              </div>
+            <li key={`${review.name}-${review.date}`}>
+              <a
+                href={recoProfile.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block h-full border-t-2 border-hairline-strong pt-5 transition-colors duration-300 hover:border-brand"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <Rating value={review.rating} />
+                  <RecoWordmark className="h-4 w-auto opacity-60 transition-opacity duration-300 group-hover:opacity-100" />
+                </div>
 
-              <blockquote className="mt-4 leading-relaxed text-ink-2">
-                {review.text}
-              </blockquote>
+                <blockquote className="mt-4 leading-relaxed text-ink-2 transition-colors duration-300 group-hover:text-ink">
+                  {review.text}
+                </blockquote>
 
-              <footer className="numeric mt-5 text-[0.72rem] tracking-[0.06em] text-ink-3 uppercase">
-                <span className="text-ink">{review.name}</span> · {review.car} ·{' '}
-                {review.service}
-              </footer>
+                <footer className="numeric mt-5 text-[0.72rem] tracking-[0.06em] text-ink-3 uppercase">
+                  <span className="text-ink">{review.name}</span> · {review.car} ·{' '}
+                  {review.service}
+                </footer>
+              </a>
             </li>
           ))}
         </ul>

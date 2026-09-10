@@ -33,12 +33,15 @@ export function Features() {
 
         <ul className="grid gap-px bg-hairline md:-mx-7 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature) => (
-            <li key={feature.title} className="bg-canvas-2 py-8 md:px-7">
+            <li
+              key={feature.title}
+              className="group bg-canvas-2 py-8 transition-colors duration-300 hover:bg-panel md:px-7"
+            >
               <p className="font-display text-[1.75rem] leading-none font-extrabold tracking-[-0.02em] text-brand">
                 {feature.value}
               </p>
               <h3 className="mt-3 font-semibold text-white">{feature.title}</h3>
-              <p className="mt-1.5 text-[0.87rem] leading-relaxed text-ink-3">
+              <p className="mt-1.5 text-[0.87rem] leading-relaxed text-ink-3 transition-colors duration-300 group-hover:text-ink-2">
                 {feature.body}
               </p>
             </li>

@@ -48,10 +48,10 @@ function Hero() {
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="group">
               <Link to="/boka">
                 Boka tid
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
@@ -74,12 +74,12 @@ function Hero() {
           </dl>
         </div>
 
-        <div className="relative min-h-[340px] overflow-hidden border-hairline lg:min-h-[560px] lg:border-l">
+        <div className="group relative min-h-[340px] overflow-hidden border-hairline lg:min-h-[560px] lg:border-l">
           <img
             src="/images/hero.webp"
             alt="Mekaniker byter hjul hos XM Bilverkstad i Handen"
             fetchPriority="high"
-            className="absolute inset-0 size-full object-cover object-[58%_50%] brightness-[0.82] saturate-[0.72]"
+            className="absolute inset-0 size-full object-cover object-[58%_50%] brightness-[0.82] saturate-[0.72] transition-transform duration-[1200ms] ease-out group-hover:scale-103"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/45 to-transparent" />
 
@@ -106,10 +106,10 @@ function ClosingCta() {
           Boka en tid – vi säger priset direkt
         </h2>
         <div className="flex flex-wrap gap-3">
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="group">
             <Link to="/boka">
               Boka tid
-              <ArrowRight className="size-4" />
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline">
@@ -128,11 +128,11 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <Features />
-      <CarflowSection />
-      <ServicesSection items={featuredServices} />
-      <AboutSection />
       <RecoReviews />
+      <Features />
+      <ServicesSection items={featuredServices} />
+      <CarflowSection />
+      <AboutSection />
       <ClosingCta />
       <ContactSection />
     </>

@@ -1,16 +1,7 @@
-import { Link } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
-
+import { ServiceCard } from '@/components/service-card'
 import type { Service } from '@/data/services'
 import { site } from '@/data/site'
 
-const priceFormatter = new Intl.NumberFormat('sv-SE')
-
-/**
- * Tjänsterna som en prislista med hårfina rader i stället för bildkort.
- * Priset är den vanligaste anledningen till att någon ringer i stället för att
- * boka, så det står till höger på varje rad med siffror i kolumn.
- */
 export function ServicesSection({
   items,
   className = 'section-padding bg-canvas',
@@ -36,38 +27,13 @@ export function ServicesSection({
           </p>
         </div>
 
-        <ol>
-          {items.map((service, index) => (
-            <li key={service.slug} className="border-b border-hairline">
-              <Link
-                to="/tjanster/$slug"
-                params={{ slug: service.slug }}
-                className="group grid grid-cols-[36px_1fr] items-center gap-x-5 gap-y-2 px-1 py-5 transition-colors hover:bg-panel sm:grid-cols-[52px_1fr_168px]"
-              >
-                <span className="numeric text-[0.76rem] text-ink-3">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="block">
-                  <span className="flex items-center gap-2 text-[1.12rem] font-semibold tracking-tight text-white transition-colors group-hover:text-brand">
-                    {service.title}
-                    <ArrowRight className="size-4 shrink-0 text-brand opacity-0 transition-opacity group-hover:opacity-100" />
-                  </span>
-                  <span className="mt-1 block text-[0.87rem] text-ink-3">
-                    {service.shortDescription}
-                  </span>
-                </span>
-                <span className="numeric col-start-2 text-[1.02rem] whitespace-nowrap text-ink sm:col-start-3 sm:text-right">
-                  <span className="block text-[0.68rem] tracking-[0.1em] text-ink-3 uppercase">
-                    Från
-                  </span>
-                  {priceFormatter.format(service.price)} kr
-                </span>
-              </Link>
-            </li>
+        <div className="grid grid-cols-2 gap-4 pt-11 md:gap-6 lg:grid-cols-3">
+          {items.map((service) => (
+            <ServiceCard key={service.slug} service={service} />
           ))}
-        </ol>
+        </div>
 
-        <p className="mt-7 text-[0.88rem] text-ink-3">
+        <p className="mt-10 text-[0.88rem] text-ink-3">
           Behöver du något annat? Ring{' '}
           <a href={site.phoneHref} className="text-brand hover:underline">
             {site.phone}

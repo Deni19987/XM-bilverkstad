@@ -87,6 +87,19 @@
     @apply bg-brand text-brand-ink;
   }
 
+  /* Rörelsen är dekor, inte information. Den som bett systemet om mindre
+     rörelse ska få sidan stilla, utan att något blir oläsligt. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   h1,
   h2,
   h3,
