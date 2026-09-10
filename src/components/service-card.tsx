@@ -7,8 +7,16 @@ const priceFormatter = new Intl.NumberFormat('sv-SE')
 
 /**
  * Ett klickbart kort per tjänst. Bilden skalas långsamt upp när muspekaren
- * ligger kvar, vilket är den enda rörelsen på kortet — ramen, rubriken och
+ * ligger kvar, vilket är den enda rörelsen på kortet: ramen, rubriken och
  * pilen byter bara färg, så att kortet inte hoppar när man sveper över rutnätet.
+ *
+ * Två saker håller skalningen mjuk. Den går på `transition-transform`, som
+ * till skillnad från en egen lista också täcker `scale` — Tailwind sätter
+ * skalan på den egenskapen, inte på `transform`, så en lista utan den lät
+ * bilden hoppa direkt till slutläget. Och nedtoningen ligger som ett lager
+ * med opacitet i stället för ett filter på bilden, eftersom både opacitet
+ * och skala kan köras av kompositorn medan ett filter tvingar fram en
+ * ommålning av hela bilden varje bildruta.
  */
 export function ServiceCard({ service }: { service: Service }) {
   return (
@@ -22,8 +30,9 @@ export function ServiceCard({ service }: { service: Service }) {
           src={service.image}
           alt={service.title}
           loading="lazy"
-          className="absolute inset-0 size-full object-cover brightness-90 saturate-[0.78] transition-[transform,filter] duration-700 ease-out group-hover:scale-107 group-hover:brightness-100 group-hover:saturate-100"
+          className="absolute inset-0 size-full object-cover saturate-[0.85] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-106"
         />
+        <div className="absolute inset-0 bg-canvas-2/30 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0" />
         <div className="absolute inset-0 bg-gradient-to-t from-canvas-2 via-canvas-2/25 to-transparent" />
       </div>
 

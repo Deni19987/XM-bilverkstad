@@ -23,8 +23,9 @@ export function AboutSection({ showCta = true }: { showCta?: boolean }) {
             src="/images/om-oss.webp"
             alt={`Bilnycklar lämnas över utanför ${site.name} på ${site.address.street} i ${site.address.city}`}
             loading="lazy"
-            className="absolute inset-0 size-full object-cover brightness-[0.92] saturate-[0.8] transition-[transform,filter] duration-700 ease-out group-hover:scale-105 group-hover:brightness-100 group-hover:saturate-100"
+            className="absolute inset-0 size-full object-cover saturate-[0.85] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
           />
+          <span className="absolute inset-0 bg-canvas-2/25 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0" />
           <span className="numeric absolute bottom-0 left-0 border-t border-r border-hairline bg-canvas-2 px-4 py-2.5 text-[0.7rem] tracking-[0.08em] text-ink-2 uppercase transition-colors duration-300 group-hover:text-brand">
             {site.address.street}, {site.address.city}
           </span>
