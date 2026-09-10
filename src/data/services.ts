@@ -424,4 +424,19 @@ export function getService(slug: string) {
 }
 
 /** The six services promoted on the home page, in the order the workshop lists them. */
-export const featuredServices = services.slice(0, 6)
+/**
+ * De sex jobb som oftast tar folk hit, valda så att listan på startsidan inte
+ * upprepar samma tjänst i två varianter.
+ */
+const featuredSlugs = [
+  'hjulbyte-handen',
+  'felsokning-handen',
+  'kontroll-infor-besiktning-exkl-ordinarie-besiktning-handen',
+  'oljebyte-motor-inkl-filter-handen',
+  'bromsservice-handen',
+  'basservice-handen',
+]
+
+export const featuredServices = featuredSlugs.flatMap(
+  (slug) => services.find((service) => service.slug === slug) ?? [],
+)

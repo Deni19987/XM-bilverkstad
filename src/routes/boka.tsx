@@ -111,12 +111,12 @@ function BookingPage() {
     const service = bookingServices.find((entry) => entry.value === submitted.service)
 
     return (
-      <div className="page-wrapper bg-black">
+      <div className="page-wrapper bg-canvas">
         <div className="site-container max-w-2xl">
-          <div className="rounded-3xl border border-blue-500/20 bg-zinc-900 p-8 text-center md:p-12">
-            <CheckCircle2 className="mx-auto mb-6 size-16 text-blue-500" />
-            <h1 className="mb-4 text-3xl font-bold text-white">Tack för din bokning!</h1>
-            <p className="mb-8 text-zinc-400">
+          <div className="rounded-3xl border border-brand/25 bg-panel p-8 text-center md:p-12">
+            <CheckCircle2 className="mx-auto mb-6 size-16 text-brand" />
+            <h1 className="display mb-4 text-[1.9rem] leading-tight text-white md:text-[2.3rem]">Tack för din bokning!</h1>
+            <p className="mb-8 text-ink-2">
               Vi har tagit emot din förfrågan om <strong>{service?.label}</strong> den{' '}
               {submitted.date} kl. {submitted.time}. Vi hör av oss på {submitted.phone}{' '}
               för att bekräfta tiden. Vid akuta ärenden, ring oss på {site.phone}.
@@ -138,14 +138,14 @@ function BookingPage() {
   }
 
   return (
-    <div className="page-wrapper bg-black text-zinc-100">
+    <div className="page-wrapper bg-canvas text-ink">
       <div className="site-container">
         <div className="mb-12 text-center">
-          <h1 className="mb-4 text-4xl font-bold">Boka Tid – Bilverkstad Handen</h1>
-          <p className="mx-auto max-w-2xl text-zinc-400">
+          <h1 className="display mb-4 text-[2.1rem] leading-tight text-white md:text-4xl">Boka Tid – Bilverkstad Handen</h1>
+          <p className="mx-auto max-w-2xl text-ink-2">
             Boka din bilservice, däckbyte eller reparation online. Det tar bara några
             minuter. Vid akuta problem, ring oss direkt på{' '}
-            <a href={site.phoneHref} className="text-blue-500 hover:underline">
+            <a href={site.phoneHref} className="text-brand hover:underline">
               {site.phone}
             </a>
             .
@@ -153,18 +153,18 @@ function BookingPage() {
         </div>
 
         <div className="mx-auto max-w-4xl">
-          <div className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900 shadow-xl">
-            <div className="border-b border-zinc-700 bg-zinc-800 p-6">
+          <div className="overflow-hidden rounded-3xl border border-hairline bg-panel shadow-xl">
+            <div className="border-b border-hairline-strong bg-panel p-6">
               <div className="relative mx-auto flex max-w-2xl items-center justify-between">
-                <div className="absolute top-1/2 left-0 -z-10 h-1 w-full bg-zinc-700" />
+                <div className="absolute top-1/2 left-0 -z-10 h-1 w-full bg-hairline-strong" />
                 {[1, 2, 3, 4].map((number, index) => (
                   <div
                     key={number}
                     className={cn(
-                      'flex size-10 items-center justify-center rounded-full border-4 border-zinc-900 text-sm font-bold transition-colors',
+                      'flex size-10 items-center justify-center rounded-full border-4 border-canvas text-sm font-bold transition-colors',
                       index <= step
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-zinc-600 text-zinc-400',
+                        ? 'bg-brand text-white'
+                        : 'bg-panel text-ink-3',
                     )}
                   >
                     {number}
@@ -179,8 +179,8 @@ function BookingPage() {
             >
               {step === 0 ? (
                 <div className="mx-auto max-w-2xl space-y-6">
-                  <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
-                    <span className="rounded-lg bg-blue-900 p-2 text-blue-300">
+                  <h2 className="display mb-6 flex items-center gap-3 text-[1.4rem] leading-tight text-white">
+                    <span className="rounded-lg bg-brand/12 p-2 text-brand">
                       <Wrench className="size-5" />
                     </span>
                     Välj Tjänst
@@ -193,19 +193,19 @@ function BookingPage() {
                         className={cn(
                           'flex cursor-pointer items-start gap-3 rounded-xl border-2 p-4 transition-all',
                           selectedService === service.value
-                            ? 'border-blue-600 bg-blue-950/30'
-                            : 'border-zinc-700 hover:border-zinc-500',
+                            ? 'border-brand bg-brand/10/30'
+                            : 'border-hairline-strong hover:border-brand/45',
                         )}
                       >
                         <input
                           type="radio"
                           value={service.value}
-                          className="mt-0.5 size-5 shrink-0 accent-blue-600"
+                          className="mt-0.5 size-5 shrink-0 accent-[#4fc3dc]"
                           {...form.register('service')}
                         />
                         <div className="min-w-0">
                           <span className="block font-medium">{service.label}</span>
-                          <span className="mt-0.5 block text-sm text-zinc-400">
+                          <span className="mt-0.5 block text-sm text-ink-2">
                             Från {formatPrice(service.from)} kr
                           </span>
                         </div>
@@ -218,8 +218,8 @@ function BookingPage() {
 
               {step === 1 ? (
                 <div className="mx-auto max-w-2xl space-y-6">
-                  <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
-                    <span className="rounded-lg bg-blue-900 p-2 text-blue-300">
+                  <h2 className="display mb-6 flex items-center gap-3 text-[1.4rem] leading-tight text-white">
+                    <span className="rounded-lg bg-brand/12 p-2 text-brand">
                       <Car className="size-5" />
                     </span>
                     Din Bil
@@ -252,8 +252,8 @@ function BookingPage() {
 
               {step === 2 ? (
                 <div className="mx-auto max-w-2xl space-y-6">
-                  <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
-                    <span className="rounded-lg bg-blue-900 p-2 text-blue-300">
+                  <h2 className="display mb-6 flex items-center gap-3 text-[1.4rem] leading-tight text-white">
+                    <span className="rounded-lg bg-brand/12 p-2 text-brand">
                       <CalendarDays className="size-5" />
                     </span>
                     Välj Datum &amp; Tid
@@ -272,7 +272,7 @@ function BookingPage() {
                   </div>
 
                   <fieldset className="space-y-3">
-                    <legend className="mb-3 text-sm font-medium text-zinc-200">
+                    <legend className="mb-3 text-sm font-medium text-ink">
                       Önskad tid
                     </legend>
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -282,8 +282,8 @@ function BookingPage() {
                           className={cn(
                             'cursor-pointer rounded-xl border-2 py-3 text-center font-medium transition-all',
                             selectedTime === slot
-                              ? 'border-blue-600 bg-blue-950/30 text-white'
-                              : 'border-zinc-700 text-zinc-300 hover:border-zinc-500',
+                              ? 'border-brand bg-brand/10/30 text-white'
+                              : 'border-hairline-strong text-ink-2 hover:border-brand/45',
                           )}
                         >
                           <input
@@ -299,7 +299,7 @@ function BookingPage() {
                     <FieldError message={form.formState.errors.time?.message} />
                   </fieldset>
 
-                  <p className="text-sm text-zinc-500">
+                  <p className="text-sm text-ink-3">
                     Öppettider: mån-fre 08:00 - 17:00. Vi bekräftar din tid via telefon.
                   </p>
                 </div>
@@ -307,8 +307,8 @@ function BookingPage() {
 
               {step === 3 ? (
                 <div className="mx-auto max-w-2xl space-y-6">
-                  <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold">
-                    <span className="rounded-lg bg-blue-900 p-2 text-blue-300">
+                  <h2 className="display mb-6 flex items-center gap-3 text-[1.4rem] leading-tight text-white">
+                    <span className="rounded-lg bg-brand/12 p-2 text-brand">
                       <User className="size-5" />
                     </span>
                     Dina Uppgifter

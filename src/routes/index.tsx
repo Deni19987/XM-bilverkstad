@@ -1,10 +1,12 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { ArrowRight, Phone } from 'lucide-react'
 
 import { AboutSection } from '@/components/sections/about-section'
+import { CarflowSection } from '@/components/sections/carflow-section'
 import { ContactSection } from '@/components/sections/contact-section'
 import { Features } from '@/components/sections/features'
+import { RecoReviews } from '@/components/sections/reco-reviews'
 import { ServicesSection } from '@/components/sections/services-section'
-import { Testimonials } from '@/components/sections/testimonials'
 import { Button } from '@/components/ui/button'
 import { featuredServices } from '@/data/services'
 import { site } from '@/data/site'
@@ -23,44 +25,98 @@ export const Route = createFileRoute('/')({
   component: HomePage,
 })
 
+const heroFacts = [
+  { label: 'Adress', value: `${site.address.street}, ${site.address.city}` },
+  { label: 'Öppet', value: 'Mån–fre 08–17' },
+  { label: 'Betyg', value: `${site.rating.display} av 5` },
+]
+
 function Hero() {
   return (
-    <section className="relative flex h-[85vh] min-h-[600px] items-center overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/images/hero.webp"
-          alt="XM Bilverkstad Haninge"
-          fetchPriority="high"
-          className="absolute inset-0 size-full object-cover opacity-60"
-        />
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/90 to-transparent sm:w-[70%]" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/40" />
-      </div>
+    <section className="border-b border-hairline">
+      <div className="mx-auto grid w-full max-w-[1320px] items-stretch lg:grid-cols-[1.02fr_0.98fr]">
+        <div className="flex flex-col justify-center px-5 py-16 sm:px-6 lg:py-22 lg:pr-15 lg:pl-8">
+          <p className="eyebrow">Bilverkstad i Handen · alla märken</p>
 
-      <div className="site-container relative z-20">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 backdrop-blur-md">
-          <span className="flex size-2 animate-pulse rounded-full bg-blue-500" />
-          <span className="text-xs font-bold tracking-widest text-blue-400 uppercase">
-            Öppet för bokningar
-          </span>
+          <h1 className="display mt-5 max-w-[13ch] text-[2.3rem] leading-[1.02] text-white sm:text-5xl lg:text-[3.5rem]">
+            <span className="text-brand">Fast pris</span> innan vi lyfter bilen.
+          </h1>
+
+          <p className="mt-8 max-w-[44ch] text-lg leading-relaxed text-ink-2">
+            Vi servar, byter däck och felsöker på {site.address.street}. Du får priset
+            innan vi börjar, och nybilsgarantin påverkas inte.
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link to="/boka">
+                Boka tid
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link to="/tjanster">Se alla priser</Link>
+            </Button>
+          </div>
+
+          <dl className="mt-11 flex flex-wrap border-t border-hairline">
+            {heroFacts.map((fact) => (
+              <div
+                key={fact.label}
+                className="mr-6 border-r border-hairline pt-4 pr-6 last:mr-0 last:border-r-0 last:pr-0"
+              >
+                <dt className="numeric text-[0.7rem] tracking-[0.1em] text-ink-3 uppercase">
+                  {fact.label}
+                </dt>
+                <dd className="mt-1.5 text-[0.9rem] text-ink">{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <h1 className="mb-6 text-4xl leading-[1.1] font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
-          Din bilverkstad i Haninge &amp; Handen
-        </h1>
+        <div className="relative min-h-[340px] overflow-hidden border-hairline lg:min-h-[560px] lg:border-l">
+          <img
+            src="/images/hero.webp"
+            alt="Mekaniker byter hjul hos XM Bilverkstad i Handen"
+            fetchPriority="high"
+            className="absolute inset-0 size-full object-cover object-[58%_50%] brightness-[0.82] saturate-[0.72]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/45 to-transparent" />
 
-        <p className="mb-10 max-w-lg text-base leading-relaxed font-light text-zinc-400 md:text-xl">
-          Certifierade bilmekaniker med fasta priser. Bilservice, däckbyte, däckhotell,
-          bromsbyte och oljebyte för alla bilmärken. {site.address.street},{' '}
-          {site.address.city}.
-        </p>
+          <div className="absolute bottom-0 left-0 flex items-center gap-3.5 border-t border-r border-hairline bg-canvas px-5 py-4">
+            <span className="font-display text-2xl leading-none font-extrabold text-brand">
+              {site.rating.count}
+            </span>
+            <p className="text-[0.78rem] leading-snug text-ink-2">
+              <span className="block font-semibold text-ink">omdömen</span>
+              {site.rating.display} i snitt på Google
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <Link to="/boka">Boka Tid Online</Link>
+function ClosingCta() {
+  return (
+    <section className="border-t border-hairline bg-canvas-2">
+      <div className="site-container flex flex-wrap items-center justify-between gap-8 py-14">
+        <h2 className="display max-w-[20ch] text-2xl leading-tight text-white md:text-[2.1rem]">
+          Boka en tid – vi säger priset direkt
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          <Button asChild size="lg">
+            <Link to="/boka">
+              Boka tid
+              <ArrowRight className="size-4" />
+            </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-            <Link to="/tjanster">Våra Tjänster</Link>
+          <Button asChild size="lg" variant="outline">
+            <a href={site.phoneHref}>
+              <Phone className="size-4" />
+              {site.phone}
+            </a>
           </Button>
         </div>
       </div>
@@ -73,9 +129,11 @@ function HomePage() {
     <>
       <Hero />
       <Features />
-      <AboutSection />
+      <CarflowSection />
       <ServicesSection items={featuredServices} />
-      <Testimonials />
+      <AboutSection />
+      <RecoReviews />
+      <ClosingCta />
       <ContactSection />
     </>
   )

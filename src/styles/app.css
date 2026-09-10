@@ -3,63 +3,68 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Riktning A — "Grafit & turkos".
+ * Grafitgrå botten, verkstadens egen turkos från logotypen som enda accent,
+ * raka kanter och hårfina linjer i stället för kort. Archivo sätter rubrikerna,
+ * IBM Plex Sans brödtexten och IBM Plex Mono allt som är siffror eller etiketter.
+ */
 @theme {
-  --font-sans: 'Sinkin Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Archivo', 'Arial Black', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-  /* XM brand accent taken from the workshop logo mark */
-  --color-brand: #55bed8;
-  --color-brand-dark: #2aa3c2;
+  /* Ytor */
+  --color-canvas: #101214;
+  --color-canvas-2: #0b0c0e;
+  --color-panel: #16191c;
+  --color-panel-hover: #191d21;
 
-  --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
+  /* Linjer */
+  --color-hairline: #22262a;
+  --color-hairline-strong: #2c3237;
+
+  /* Text */
+  --color-ink: #eef0f1;
+  --color-ink-2: #a5abb1;
+  --color-ink-3: #727980;
+
+  /* Accent — turkosen ur XM-märket */
+  --color-brand: #4fc3dc;
+  --color-brand-hover: #7fd6e9;
+  --color-brand-ink: #06181d;
+
+  /*
+   * Nästan raka hörn genomgående. Genom att skriva om radie-skalan i stället
+   * för varje klass slipper resten av sajten röras.
+   */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 3px;
+  --radius-lg: 3px;
+  --radius-xl: 4px;
+  --radius-2xl: 4px;
+  --radius-3xl: 6px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-}
-
-/*
- * The site is dark-only by design, matching the workshop's brand: black canvas,
- * zinc panels, blue-600 as the single call-to-action colour.
- */
-:root {
-  --radius: 0.75rem;
-  --background: var(--color-black);
-  --foreground: var(--color-zinc-100);
-  --card: var(--color-zinc-900);
-  --card-foreground: var(--color-zinc-100);
-  --primary: var(--color-blue-600);
-  --primary-foreground: var(--color-white);
-  --secondary: var(--color-zinc-800);
-  --secondary-foreground: var(--color-zinc-100);
-  --muted: var(--color-zinc-900);
-  --muted-foreground: var(--color-zinc-400);
-  --accent: var(--color-zinc-800);
-  --accent-foreground: var(--color-zinc-100);
-  --destructive: var(--color-red-500);
-  --border: --alpha(var(--color-white) / 10%);
-  --input: --alpha(var(--color-white) / 15%);
-  --ring: var(--color-blue-600);
+  --color-background: var(--color-canvas);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-panel);
+  --color-card-foreground: var(--color-ink);
+  --color-primary: var(--color-brand);
+  --color-primary-foreground: var(--color-brand-ink);
+  --color-secondary: var(--color-panel);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-canvas-2);
+  --color-muted-foreground: var(--color-ink-2);
+  --color-accent: var(--color-panel);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: var(--color-red-500);
+  --color-border: var(--color-hairline);
+  --color-input: var(--color-hairline-strong);
+  --color-ring: var(--color-brand);
 }
 
 @layer base {
@@ -69,25 +74,50 @@
 
   html {
     scroll-behavior: smooth;
+    /* Låter webbläsarens egna kontroller (radioknappar, rullister, datumväljare)
+       ritas mörka i stället för att lysa vitt mot grafiten. */
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-black text-zinc-100 font-sans antialiased overflow-x-hidden;
+    @apply bg-canvas text-ink font-sans antialiased overflow-x-hidden;
   }
 
   ::selection {
-    @apply bg-blue-600 text-white;
+    @apply bg-brand text-brand-ink;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
   }
 }
 
 @utility site-container {
-  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  @apply mx-auto w-full max-w-[1320px] px-5 sm:px-6 lg:px-8;
 }
 
 @utility section-padding {
-  @apply py-16 md:py-24;
+  @apply py-16 md:py-26;
 }
 
 @utility page-wrapper {
   @apply py-16 md:py-20;
+}
+
+/* Versal etikett över varje rubrik. */
+@utility eyebrow {
+  @apply text-brand text-[0.68rem] font-semibold tracking-[0.2em] uppercase;
+}
+
+/* Versalrubrik i Archivo — sajtens tydligaste kännetecken. */
+@utility display {
+  @apply font-display font-extrabold uppercase tracking-[-0.02em];
+}
+
+/* Siffror som ska stå i kolumn: priser, moment, öppettider. */
+@utility numeric {
+  @apply font-mono tabular-nums;
 }
