@@ -59,10 +59,11 @@ function Hero() {
       </div>
 
       <div className="site-container pt-24 pb-10 md:pt-28 lg:pt-36 lg:pb-12">
-        <p className="eyebrow">Bilverkstad i Handen · alla märken</p>
+        <p className="eyebrow">Alla märken · fast pris</p>
 
-        <h1 className="display mt-5 max-w-[15ch] text-[2.4rem] leading-[1.02] text-white sm:text-5xl lg:text-[3.7rem]">
-          <span className="text-brand">Fast pris</span> innan vi lyfter bilen.
+        <h1 className="display mt-5 max-w-[18ch] text-[2.15rem] leading-[1.02] text-white text-wrap sm:text-5xl lg:text-[3.7rem]">
+          Din mekaniker i{' '}
+          <span className="text-brand">Haninge &amp;&nbsp;Handen</span>
         </h1>
 
         <p className="mt-7 max-w-[46ch] text-lg leading-relaxed text-ink-2">

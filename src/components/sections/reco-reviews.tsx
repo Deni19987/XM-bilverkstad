@@ -73,7 +73,7 @@ export function RecoReviews() {
           kommer vidare. Där ligger de i stället på en svepbar rad, ett kort i
           taget. Från medelbredd och upp är det ett vanligt rutnät igen.
         */}
-        <ul className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pt-11 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:grid md:gap-x-11 md:gap-y-10 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-2 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
+        <ul className="-mx-5 flex snap-x snap-mandatory scroll-pl-5 gap-4 overflow-x-auto px-5 pt-11 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:scroll-pl-0 md:grid md:gap-x-11 md:gap-y-10 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-2 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
           {recoReviews.map((review) => (
             <li
               key={`${review.name}-${review.date}`}
