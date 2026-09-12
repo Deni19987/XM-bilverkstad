@@ -25,31 +25,39 @@ export const Route = createFileRoute('/')({
 
 function Hero() {
   return (
-    <section className="relative flex h-[85vh] min-h-[600px] items-center overflow-hidden bg-black">
+    <section className="relative flex h-[calc(100svh-5rem)] min-h-[620px] items-end overflow-hidden bg-black pb-14 sm:h-[85vh] sm:items-center sm:pb-0">
       <div className="absolute inset-0 z-0">
         <img
           src="/images/hero.webp"
           alt="XM Bilverkstad Haninge"
           fetchPriority="high"
-          className="absolute inset-0 size-full object-cover opacity-60"
+          className="absolute inset-0 size-full object-cover object-[62%_center] opacity-90 sm:object-center sm:opacity-60"
         />
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/90 to-transparent sm:w-[70%]" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/40" />
+
+        {/*
+         * Mobile has no room for the side-by-side split, so the photo stays
+         * full-bleed and the copy sits on a bottom-up scrim instead.
+         */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/80 to-black/25 sm:hidden" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/55 to-transparent to-35% sm:hidden" />
+
+        <div className="absolute inset-0 z-10 hidden bg-gradient-to-r from-black via-black/90 to-transparent sm:block sm:w-[70%]" />
+        <div className="absolute inset-0 z-10 hidden bg-gradient-to-t from-black via-transparent to-black/40 sm:block" />
       </div>
 
       <div className="site-container relative z-20">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 backdrop-blur-md">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 backdrop-blur-md sm:mb-8">
           <span className="flex size-2 animate-pulse rounded-full bg-blue-500" />
           <span className="text-xs font-bold tracking-widest text-blue-400 uppercase">
             Öppet för bokningar
           </span>
         </div>
 
-        <h1 className="mb-6 text-4xl leading-[1.1] font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
+        <h1 className="mb-4 text-4xl leading-[1.1] font-bold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] sm:mb-6 sm:drop-shadow-none md:text-6xl lg:text-7xl">
           Din bilverkstad i Haninge &amp; Handen
         </h1>
 
-        <p className="mb-10 max-w-lg text-base leading-relaxed font-light text-zinc-400 md:text-xl">
+        <p className="mb-8 max-w-lg text-base leading-relaxed font-light text-zinc-300 sm:mb-10 sm:text-zinc-400 md:text-xl">
           Certifierade bilmekaniker med fasta priser. Bilservice, däckbyte, däckhotell,
           bromsbyte och oljebyte för alla bilmärken. {site.address.street},{' '}
           {site.address.city}.
