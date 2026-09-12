@@ -17,7 +17,7 @@ export function SiteHeader() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-7 lg:flex">
           {navigation.map((item) => (
             <Link
               key={item.to}
@@ -30,7 +30,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="ml-auto hidden items-center gap-5 md:flex">
+        <div className="ml-auto hidden items-center gap-5 lg:flex">
           <a
             href={site.whatsapp}
             target="_blank"
@@ -42,19 +42,19 @@ export function SiteHeader() {
           </a>
           <a
             href={site.phoneHref}
-            className="numeric text-[0.85rem] text-ink-2 transition-colors hover:text-ink"
+            className="numeric text-[0.85rem] whitespace-nowrap text-ink-2 transition-colors hover:text-ink"
           >
             {site.phone}
           </a>
           <Link
             to="/boka"
-            className="rounded-sm bg-brand px-5 py-2.5 text-sm font-semibold text-brand-ink transition-colors hover:bg-brand-hover"
+            className="rounded-sm bg-brand px-5 py-2.5 text-sm font-semibold whitespace-nowrap text-brand-ink transition-colors hover:bg-brand-hover"
           >
             Boka tid
           </Link>
         </div>
 
-        <div className="ml-auto flex items-center gap-3 md:hidden">
+        <div className="ml-auto flex items-center gap-3 lg:hidden">
           <a
             href={site.whatsapp}
             target="_blank"
@@ -78,7 +78,7 @@ export function SiteHeader() {
 
       <div
         className={cn(
-          'border-t border-hairline bg-canvas md:hidden',
+          'border-t border-hairline bg-canvas lg:hidden',
           open ? 'block' : 'hidden',
         )}
       >

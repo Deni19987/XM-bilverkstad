@@ -31,11 +31,11 @@ export function Features() {
       <div className="site-container">
         <h2 className="sr-only">Varför välja XM Bilverkstad i Haninge</h2>
 
-        <ul className="grid gap-px bg-hairline md:-mx-7 md:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid gap-px bg-hairline md:-mx-6 md:grid-cols-2 lg:-mx-8 lg:grid-cols-4">
           {features.map((feature) => (
             <li
               key={feature.title}
-              className="group bg-canvas-2 py-8 transition-colors duration-300 hover:bg-panel md:px-7"
+              className="group bg-canvas-2 py-8 transition-colors duration-300 hover:bg-panel md:px-6 lg:px-8"
             >
               <p className="font-display text-[1.75rem] leading-none font-extrabold tracking-[-0.02em] text-brand">
                 {feature.value}
