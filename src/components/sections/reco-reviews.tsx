@@ -68,9 +68,17 @@ export function RecoReviews() {
           </a>
         </div>
 
-        <ul className="grid gap-x-11 gap-y-10 pt-11 md:grid-cols-2 lg:grid-cols-3">
+        {/*
+          På telefon blir sex staplade kort två skärmars scroll innan man
+          kommer vidare. Där ligger de i stället på en svepbar rad, ett kort i
+          taget. Från medelbredd och upp är det ett vanligt rutnät igen.
+        */}
+        <ul className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pt-11 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:grid md:gap-x-11 md:gap-y-10 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-2 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
           {recoReviews.map((review) => (
-            <li key={`${review.name}-${review.date}`}>
+            <li
+              key={`${review.name}-${review.date}`}
+              className="w-[78%] shrink-0 snap-start md:w-auto md:shrink"
+            >
               <a
                 href={recoProfile.url}
                 target="_blank"

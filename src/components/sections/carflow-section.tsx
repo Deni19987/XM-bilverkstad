@@ -218,8 +218,14 @@ function StatusPhone() {
 export function CarflowSection() {
   return (
     <section className="section-padding border-y border-hairline bg-canvas-2">
-      <div className="site-container grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_288px] lg:gap-[70px]">
-        <div>
+      {/*
+        På telefon kommer telefonen före punktlistan. Skärmbilden är det som
+        förklarar hela tjänsten på en sekund, och den ska inte ligga sist efter
+        fyra stycken text. Från stora skärmar faller den tillbaka till höger
+        spalt med texten samlad till vänster.
+      */}
+      <div className="site-container flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,1fr)_288px] lg:items-center lg:gap-x-[70px] lg:gap-y-9">
+        <div className="order-1 lg:col-start-1 lg:row-start-1">
           <p className="eyebrow">Nyhet – Carflow</p>
           <h2 className="display mt-5 max-w-[14ch] text-4xl leading-[1.02] text-white md:text-5xl">
             Följ bilen i mobilen
@@ -229,25 +235,27 @@ export function CarflowSection() {
             med en länk till din egen sida. Där följer du varje steg vi gör och får en
             notis när något händer. Ingen app att ladda ner.
           </p>
-
-          <ul className="mt-9 grid gap-6">
-            {promises.map((item) => (
-              <li key={item.title} className="flex items-start gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-sm border border-brand/25 bg-brand/10 text-brand">
-                  <item.icon className="size-5" strokeWidth={1.7} />
-                </span>
-                <div>
-                  <h3 className="font-semibold tracking-tight text-white">{item.title}</h3>
-                  <p className="mt-1 max-w-[44ch] text-[0.94rem] leading-relaxed text-ink-2">
-                    {item.body}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
 
-        <StatusPhone />
+        <div className="order-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <StatusPhone />
+        </div>
+
+        <ul className="order-3 grid gap-5 lg:col-start-1 lg:row-start-2 lg:gap-6">
+          {promises.map((item) => (
+            <li key={item.title} className="flex items-start gap-4">
+              <span className="grid size-10 shrink-0 place-items-center rounded-sm border border-brand/25 bg-brand/10 text-brand md:size-11">
+                <item.icon className="size-[18px] md:size-5" strokeWidth={1.7} />
+              </span>
+              <div>
+                <h3 className="font-semibold tracking-tight text-white">{item.title}</h3>
+                <p className="mt-1 max-w-[44ch] text-[0.94rem] leading-relaxed text-ink-2">
+                  {item.body}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )

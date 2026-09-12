@@ -138,8 +138,8 @@ function HomePage() {
     <>
       <Hero />
       <RecoReviews />
-      <Features />
       <ServicesSection items={featuredServices} />
+      <Features />
       <CarflowSection />
       <AboutSection />
       <ClosingCta />

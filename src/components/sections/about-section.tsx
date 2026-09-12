@@ -17,7 +17,7 @@ export function AboutSection({ showCta = true }: { showCta?: boolean }) {
       <div className="site-container grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
         <Link
           to="/om-oss"
-          className="group relative block aspect-4/5 overflow-hidden border border-hairline transition-colors duration-300 hover:border-brand/40"
+          className="group relative block aspect-3/2 overflow-hidden border border-hairline transition-colors duration-300 hover:border-brand/40 lg:aspect-4/5"
         >
           <img
             src="/images/om-oss.webp"
@@ -48,11 +48,11 @@ export function AboutSection({ showCta = true }: { showCta?: boolean }) {
             Tyresö. Många har varit hos oss i flera bilar i rad.
           </p>
 
-          <ul className="mt-8 grid gap-px border border-hairline bg-hairline sm:grid-cols-2">
+          <ul className="mt-8 grid grid-cols-2 gap-px border border-hairline bg-hairline">
             {highlights.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2.5 bg-canvas-2 px-4 py-3.5 text-[0.9rem] text-ink-2"
+                className="flex items-center gap-2.5 bg-canvas-2 px-3.5 py-3.5 text-[0.85rem] leading-snug text-ink-2 sm:px-4 sm:text-[0.9rem]"
               >
                 <Check className="size-3.5 shrink-0 text-brand" strokeWidth={2.6} />
                 {item}
