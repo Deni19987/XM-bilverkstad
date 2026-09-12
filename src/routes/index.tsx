@@ -28,54 +28,71 @@ export const Route = createFileRoute('/')({
 const heroFacts = [
   { label: 'Adress', value: `${site.address.street}, ${site.address.city}` },
   { label: 'Öppet', value: 'Mån–fre 08–17' },
-  { label: 'Betyg', value: `${site.rating.display} av 5` },
+  {
+    label: 'Betyg',
+    value: `${site.rating.display} av 5 · ${site.rating.count} omdömen`,
+  },
 ]
 
 function Hero() {
   return (
-    <section className="border-b border-hairline">
-      <div className="site-container pt-14 pb-10 md:pt-20 md:pb-12">
-        {/*
-          Rubriken till vänster och löftet till höger delar samma baslinje, så
-          att raden fyller bredden utan att texten blir en lång remsa. Under
-          dem ligger fakta på en linjerad rad, och först därefter fotot.
-        */}
-        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
-          <div>
-            <p className="eyebrow">Bilverkstad i Handen · alla märken</p>
-            <h1 className="display mt-5 max-w-[15ch] text-[2.4rem] leading-[1.02] text-white sm:text-5xl lg:text-[3.7rem]">
-              <span className="text-brand">Fast pris</span> innan vi lyfter bilen.
-            </h1>
-          </div>
+    <section className="relative isolate flex min-h-[560px] flex-col justify-end overflow-hidden border-b border-hairline lg:min-h-[640px]">
+      {/*
+        Fotot ligger bakom texten, inte bredvid den. Slöjan över det byter
+        riktning med skärmen: på en telefon faller texten över hela bredden,
+        så den mörknar nerifrån och upp. Från stora skärmar står texten till
+        vänster och slöjan går i sidled, vilket lämnar mekanikern och hjulet
+        fria till höger.
+      */}
+      <div className="absolute inset-0 -z-10">
+        <img
+          src="/images/hero.webp"
+          alt="Mekaniker byter hjul hos XM Bilverkstad i Handen"
+          fetchPriority="high"
+          className="size-full object-cover object-[66%_45%] brightness-[0.68] saturate-[0.66] lg:object-[62%_45%] lg:brightness-[0.82] lg:saturate-[0.72]"
+        />
+        {/* Håller fotot i grafitpaletten i stället för att låta det spreta. */}
+        <div className="absolute inset-0 bg-canvas/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-canvas from-18% via-canvas/90 to-canvas/55 lg:hidden" />
+        <div className="absolute inset-0 hidden lg:block lg:bg-gradient-to-r lg:from-canvas lg:from-38% lg:via-canvas/70 lg:via-64% lg:to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 hidden h-1/3 bg-gradient-to-t from-canvas to-transparent lg:block" />
+      </div>
 
-          <div className="lg:pb-2">
-            <p className="max-w-[46ch] text-lg leading-relaxed text-ink-2">
-              Vi servar, byter däck och felsöker på {site.address.street}. Du får priset
-              innan vi börjar, och nybilsgarantin påverkas inte.
-            </p>
+      <div className="site-container pt-24 pb-10 md:pt-28 lg:pt-36 lg:pb-12">
+        <p className="eyebrow">Bilverkstad i Handen · alla märken</p>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="group">
-                <Link to="/boka">
-                  Boka tid
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/tjanster">Se alla priser</Link>
-              </Button>
-            </div>
-          </div>
+        <h1 className="display mt-5 max-w-[15ch] text-[2.4rem] leading-[1.02] text-white sm:text-5xl lg:text-[3.7rem]">
+          <span className="text-brand">Fast pris</span> innan vi lyfter bilen.
+        </h1>
+
+        <p className="mt-7 max-w-[46ch] text-lg leading-relaxed text-ink-2">
+          Vi servar, byter däck och felsöker på {site.address.street}. Du får priset innan
+          vi börjar, och nybilsgarantin påverkas inte.
+        </p>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button asChild size="lg" className="group">
+            <Link to="/boka">
+              Boka tid
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link to="/tjanster">Se alla priser</Link>
+          </Button>
         </div>
+      </div>
 
-        <dl className="mt-12 grid border-t border-hairline sm:grid-cols-3">
+      {/* Faktaraden ligger som en linjerad list längst ner, ovanpå fotot. */}
+      <div className="site-container">
+        <dl className="grid border-t border-white/15 sm:grid-cols-3">
           {heroFacts.map((fact, index) => (
             <div
               key={fact.label}
               className={`py-4 sm:px-7 ${
                 index === 0
                   ? 'sm:pl-0'
-                  : 'border-t border-hairline sm:border-t-0 sm:border-l'
+                  : 'border-t border-white/15 sm:border-t-0 sm:border-l'
               } ${index === heroFacts.length - 1 ? 'sm:pr-0' : ''}`}
             >
               <dt className="numeric text-[0.7rem] tracking-[0.1em] text-ink-3 uppercase">
@@ -85,33 +102,6 @@ function Hero() {
             </div>
           ))}
         </dl>
-      </div>
-
-      {/*
-        Fotot går kant till kant under texten. Det behöver ingen mörk slöja
-        över sig längre, eftersom ingen text ligger ovanpå — bara en svag
-        övertoning nedtill så att betygsplattan har något att vila mot.
-      */}
-      <div className="relative border-t border-hairline">
-        <img
-          src="/images/hero.webp"
-          alt="Mekaniker byter hjul hos XM Bilverkstad i Handen"
-          fetchPriority="high"
-          className="h-[clamp(220px,36vw,440px)] w-full object-cover object-[58%_45%] brightness-[0.86] saturate-[0.8]"
-        />
-        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-canvas/85 to-transparent" />
-
-        <div className="site-container absolute inset-x-0 bottom-0">
-          <div className="inline-flex items-center gap-3.5 border border-b-0 border-hairline bg-canvas px-5 py-4">
-            <span className="font-display text-2xl leading-none font-extrabold text-brand">
-              {site.rating.count}
-            </span>
-            <p className="text-[0.78rem] leading-snug text-ink-2">
-              <span className="block font-semibold text-ink">omdömen</span>
-              {site.rating.display} i snitt på Google
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   )
