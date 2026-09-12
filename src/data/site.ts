@@ -21,7 +21,8 @@ export const site = {
     { day: 'Lördag', time: 'Stängt' },
     { day: 'Söndag', time: 'Stängt' },
   ],
-  rating: { value: '5.0', count: 583 },
+  /** `value` går till schema.org och måste ha punkt; `display` är den som visas. */
+  rating: { value: '5.0', display: '5,0', count: 583 },
   tagline:
     'XM Bilverkstad i Handen – din lokala bilverkstad i Haninge och södra Stockholm. Bilservice, däckbyte, däckhotell, bromsbyte och oljebyte med fasta priser.',
 } as const

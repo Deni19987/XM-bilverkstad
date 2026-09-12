@@ -20,25 +20,25 @@ export const Route = createFileRoute('/omdomen')({
 
 function ReviewsPage() {
   return (
-    <div className="page-wrapper bg-black">
+    <div className="page-wrapper bg-canvas">
       <div className="site-container">
         <div className="mb-16 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-white">
+          <h1 className="display mb-4 text-[2.1rem] leading-tight text-white md:text-4xl">
             Kundrecensioner – Bilverkstad Haninge
           </h1>
-          <p className="mx-auto max-w-2xl text-zinc-400">
+          <p className="mx-auto max-w-2xl text-ink-2">
             Läs vad bilägare i Handen och Haninge tycker om vår bilverkstad. Vi är stolta
-            över vårt betyg på {site.rating.value} av 5 stjärnor.
+            över vårt betyg på {site.rating.display} av 5 stjärnor.
           </p>
 
-          <div className="mt-8 inline-flex flex-col items-center gap-2 rounded-2xl border border-white/5 bg-zinc-900/50 px-10 py-6">
+          <div className="mt-8 inline-flex flex-col items-center gap-2 rounded-2xl border border-hairline bg-panel px-10 py-6">
             <div className="flex gap-1 text-yellow-400">
               {Array.from({ length: 5 }, (_, index) => (
                 <Star key={index} className="size-5 fill-current" />
               ))}
             </div>
             <span className="text-3xl font-bold text-white">
-              {site.rating.value} / 5.0
+              {site.rating.display} / 5
             </span>
           </div>
         </div>
@@ -47,11 +47,11 @@ function ReviewsPage() {
           {reviews.map((review, index) => (
             <article
               key={`${review.name}-${review.date}-${index}`}
-              className="group flex h-full flex-col rounded-2xl border border-white/5 bg-zinc-900/50 p-6 transition-all duration-300 hover:bg-zinc-900 md:p-8"
+              className="group flex h-full flex-col rounded-2xl border border-hairline bg-panel p-6 transition-all duration-300 hover:bg-panel md:p-8"
             >
               <div className="mb-6 flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex size-10 items-center justify-center rounded-full bg-blue-500/10 text-lg font-bold text-blue-500">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-brand/10 text-lg font-bold text-brand">
                     {review.name.charAt(0)}
                   </div>
                   <div>
@@ -64,11 +64,11 @@ function ReviewsPage() {
                 </div>
               </div>
 
-              <blockquote className="mb-6 flex-grow leading-relaxed text-zinc-300 italic">
+              <blockquote className="mb-6 flex-grow leading-relaxed text-ink-2 italic">
                 &ldquo;{review.text}&rdquo;
               </blockquote>
 
-              <div className="mt-auto flex flex-col gap-2 border-t border-white/5 pt-6 text-sm text-zinc-500">
+              <div className="mt-auto flex flex-col gap-2 border-t border-hairline pt-6 text-sm text-ink-3">
                 <div className="flex items-center gap-2">
                   <Car className="size-4 shrink-0" />
                   <span>{review.car}</span>

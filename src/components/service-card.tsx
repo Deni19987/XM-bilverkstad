@@ -3,34 +3,55 @@ import { ArrowRight } from 'lucide-react'
 
 import type { Service } from '@/data/services'
 
+const priceFormatter = new Intl.NumberFormat('sv-SE')
+
+/**
+ * Ett klickbart kort per tjänst. Bilden skalas långsamt upp när muspekaren
+ * ligger kvar, vilket är den enda rörelsen på kortet: ramen, rubriken och
+ * pilen byter bara färg, så att kortet inte hoppar när man sveper över rutnätet.
+ *
+ * Två saker håller skalningen mjuk. Den går på `transition-transform`, som
+ * till skillnad från en egen lista också täcker `scale` — Tailwind sätter
+ * skalan på den egenskapen, inte på `transform`, så en lista utan den lät
+ * bilden hoppa direkt till slutläget. Och nedtoningen ligger som ett lager
+ * med opacitet i stället för ett filter på bilden, eftersom både opacitet
+ * och skala kan köras av kompositorn medan ett filter tvingar fram en
+ * ommålning av hela bilden varje bildruta.
+ */
 export function ServiceCard({ service }: { service: Service }) {
   return (
     <Link
       to="/tjanster/$slug"
       params={{ slug: service.slug }}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/5 bg-zinc-900/50 transition-all duration-300 hover:border-blue-500/30 hover:bg-zinc-900"
+      className="group flex h-full flex-col overflow-hidden border border-hairline bg-canvas-2 transition-colors duration-300 hover:border-brand/40"
     >
-      <div className="relative h-32 w-full overflow-hidden bg-zinc-800 md:h-48">
+      <div className="relative h-36 w-full overflow-hidden bg-panel md:h-52">
         <img
           src={service.image}
           alt={service.title}
           loading="lazy"
-          className="absolute inset-0 size-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 size-full object-cover saturate-[0.85] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-106"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-canvas-2/30 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-0" />
+        <div className="absolute inset-0 bg-gradient-to-t from-canvas-2 via-canvas-2/25 to-transparent" />
       </div>
 
-      <div className="flex flex-grow flex-col p-4 md:p-8">
-        <h3 className="mb-2 flex items-center gap-2 text-base font-bold text-white md:mb-3 md:text-xl">
-          {service.title}
-          <ArrowRight className="size-4 shrink-0 text-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
+      <div className="flex flex-grow flex-col p-4 md:p-6">
+        <h3 className="flex items-start gap-2 text-base leading-snug font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-brand md:text-lg">
+          <span className="flex-grow">{service.title}</span>
+          <ArrowRight className="mt-0.5 size-4 shrink-0 -translate-x-1 text-brand opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
         </h3>
-        <p className="mb-4 flex-grow line-clamp-2 text-sm leading-relaxed text-zinc-400 group-hover:text-zinc-300 md:line-clamp-3">
+
+        <p className="mt-2 line-clamp-2 flex-grow text-sm leading-relaxed text-ink-3 transition-colors duration-300 group-hover:text-ink-2 md:line-clamp-3">
           {service.shortDescription}
         </p>
-        <span className="mt-auto text-xs font-bold text-blue-500 md:text-sm">
-          Läs mer &amp; boka
-        </span>
+
+        <p className="numeric mt-4 border-t border-hairline pt-3 text-[0.95rem] text-ink transition-colors duration-300 group-hover:border-brand/30">
+          <span className="mr-1.5 text-[0.68rem] tracking-[0.1em] text-ink-3 uppercase">
+            Från
+          </span>
+          {priceFormatter.format(service.price)} kr
+        </p>
       </div>
     </Link>
   )

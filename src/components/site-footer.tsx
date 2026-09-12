@@ -14,18 +14,18 @@ const footerServices = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/5 bg-black py-12 text-zinc-300">
+    <footer className="border-t border-hairline bg-canvas-2 py-14 text-ink-2">
       <div className="site-container grid grid-cols-1 gap-8 md:grid-cols-4">
         <div className="space-y-4">
-          <h3 className="text-xl font-bold text-white">{site.name}</h3>
-          <p className="text-sm text-zinc-400">{site.tagline}</p>
+          <h3 className="display text-lg text-white">{site.name}</h3>
+          <p className="text-sm text-ink-2">{site.tagline}</p>
           <div className="flex gap-4">
             <a
               href={site.facebook}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${site.name} på Facebook`}
-              className="hover:text-blue-400"
+              className="text-ink-2 transition-colors hover:text-brand"
             >
               <FacebookIcon className="size-5" />
             </a>
@@ -34,7 +34,7 @@ export function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${site.name} på Instagram`}
-              className="hover:text-blue-400"
+              className="text-ink-2 transition-colors hover:text-brand"
             >
               <InstagramIcon className="size-5" />
             </a>
@@ -42,7 +42,7 @@ export function SiteFooter() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="font-semibold text-white">Tjänster</h4>
+          <h4 className="numeric text-[0.7rem] tracking-[0.14em] text-ink-3 uppercase">Tjänster</h4>
           <ul className="space-y-2 text-sm">
             {footerServices.map((service) => (
               <li key={service.slug}>
@@ -59,10 +59,10 @@ export function SiteFooter() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="font-semibold text-white">Kontakt</h4>
+          <h4 className="numeric text-[0.7rem] tracking-[0.14em] text-ink-3 uppercase">Kontakt</h4>
           <ul className="space-y-3 text-sm">
             <li className="flex gap-3">
-              <MapPin className="size-4 shrink-0 text-blue-500" />
+              <MapPin className="size-4 shrink-0 text-brand" />
               <a
                 href={site.maps}
                 target="_blank"
@@ -75,7 +75,7 @@ export function SiteFooter() {
               </a>
             </li>
             <li className="flex gap-3">
-              <Phone className="size-4 shrink-0 text-blue-500" />
+              <Phone className="size-4 shrink-0 text-brand" />
               <a href={site.phoneHref} className="hover:text-white">
                 {site.phone}
               </a>
@@ -92,7 +92,7 @@ export function SiteFooter() {
               </a>
             </li>
             <li className="flex gap-3">
-              <Mail className="size-4 shrink-0 text-blue-500" />
+              <Mail className="size-4 shrink-0 text-brand" />
               <a href={`mailto:${site.email}`} className="hover:text-white">
                 {site.email}
               </a>
@@ -101,10 +101,10 @@ export function SiteFooter() {
         </div>
 
         <div className="space-y-4">
-          <h4 className="font-semibold text-white">Öppettider</h4>
+          <h4 className="numeric text-[0.7rem] tracking-[0.14em] text-ink-3 uppercase">Öppettider</h4>
           <ul className="space-y-2 text-sm">
             {site.hours.map((entry) => (
-              <li key={entry.day} className="flex justify-between">
+              <li key={entry.day} className="numeric flex justify-between">
                 <span>{entry.day}</span>
                 <span>{entry.time}</span>
               </li>
@@ -113,7 +113,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="site-container mt-12 border-t border-zinc-800 pt-8 text-center text-sm text-zinc-500">
+      <div className="site-container numeric mt-12 border-t border-hairline pt-8 text-center text-[0.72rem] tracking-[0.06em] text-ink-3 uppercase">
         © {new Date().getFullYear()} {site.legalName}. Alla rättigheter reserverade.
       </div>
     </footer>

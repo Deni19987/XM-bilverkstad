@@ -5,24 +5,24 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+  "inline-flex items-center justify-center gap-2 rounded-sm text-center text-sm font-semibold text-balance transition-colors outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-canvas disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: 'bg-blue-600 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700',
-        destructive: 'bg-red-600 text-white hover:bg-red-700',
+        default: 'bg-brand text-brand-ink hover:bg-brand-hover',
+        destructive: 'bg-red-600 text-white hover:bg-red-500',
         outline:
-          'border border-white/10 bg-white/5 text-white backdrop-blur-md hover:bg-white/10',
-        secondary: 'bg-zinc-800 text-zinc-100 hover:bg-zinc-700',
-        ghost: 'text-zinc-300 hover:bg-zinc-800 hover:text-white',
-        light: 'bg-white text-black shadow-lg shadow-white/5 hover:bg-zinc-200',
-        link: 'text-blue-500 underline-offset-4 hover:underline',
+          'border border-hairline-strong bg-transparent text-ink hover:border-ink-3 hover:text-white',
+        secondary: 'bg-panel text-ink hover:bg-panel-hover',
+        ghost: 'text-ink-2 hover:bg-panel hover:text-ink',
+        light: 'bg-ink text-canvas hover:bg-white',
+        link: 'text-brand underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-10 px-5 py-2',
-        sm: 'h-9 rounded-lg px-3',
-        lg: 'h-14 rounded-xl px-8 text-base',
-        pill: 'h-11 rounded-full px-6',
+        default: 'min-h-11 px-5 py-2.5',
+        sm: 'min-h-9 px-3.5 py-2 text-[0.83rem]',
+        lg: 'min-h-13 px-7 py-3 text-[0.95rem]',
+        pill: 'min-h-11 px-6 py-2.5',
         icon: 'size-10',
       },
     },

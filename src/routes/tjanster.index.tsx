@@ -21,5 +21,11 @@ export const Route = createFileRoute('/tjanster/')({
 })
 
 function ServicesPage() {
-  return <ServicesSection items={services} className="page-wrapper bg-black" />
+  return (
+    <ServicesSection
+      items={services}
+      className="page-wrapper bg-canvas"
+      heading="Alla tjänster och riktpriser"
+    />
+  )
 }

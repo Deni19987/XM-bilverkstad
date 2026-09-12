@@ -1,51 +1,58 @@
-import { Award, Car, Tag, Timer } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
-
-const features: Array<{ icon: LucideIcon; title: string; body: string }> = [
+/**
+ * Fyra löften som remsa med hårfina avdelare i stället för kort. Värdet står i
+ * Archivo överst så raden går att läsa på en halv sekund.
+ *
+ * På telefon ligger de två och två och visar bara värdet och rubriken.
+ * Rubrikerna bär hela poängen på egen hand, och fyra staplade stycken var en
+ * hel skärms scroll för något som är tänkt att läsas i förbifarten.
+ */
+const features = [
   {
-    icon: Award,
-    title: 'Certifierade Mekaniker',
-    body: 'Erfarna bilmekaniker i Haninge med specialistkunskap inom alla bilmärken och modeller.',
+    value: '45 min',
+    title: 'Oljebyte medan du väntar',
+    body: 'De flesta jobb blir klara samma dag. Ett hjulbyte tar runt 30 minuter.',
   },
   {
-    icon: Timer,
-    title: 'Snabb Service',
-    body: 'De flesta jobb klara samma dag. Oljebyte på 45 min, däckbyte på 30 min.',
+    value: '2 år',
+    title: 'Garanti på utfört arbete',
+    body: 'Nybilsgarantin påverkas inte av att du servar bilen hos oss.',
   },
   {
-    icon: Tag,
-    title: 'Fasta Priser',
-    body: 'Inga dolda avgifter. Du får alltid ett fast pris innan vi börjar arbeta.',
+    value: 'Fast',
+    title: 'Pris innan vi börjar',
+    body: 'Hittar vi något mer ringer vi. Inget görs innan du har sagt ja.',
   },
   {
-    icon: Car,
-    title: 'Alla Bilmärken',
-    body: 'Vi servar och reparerar alla bilmärken – din nybilsgaranti gäller hos oss.',
+    value: 'Alla',
+    title: 'Märken och modeller',
+    body: 'Samma OBD-diagnos som märkesverkstaden, oavsett vad du kör.',
   },
 ]
 
 export function Features() {
   return (
-    <section className="section-padding border-b border-white/5 bg-zinc-950">
-      <div className="site-container relative z-10">
+    <section className="border-b border-hairline bg-canvas-2">
+      <div className="site-container">
         <h2 className="sr-only">Varför välja XM Bilverkstad i Haninge</h2>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <ul className="-mx-5 grid grid-cols-2 gap-px bg-hairline md:-mx-6 lg:-mx-8 lg:grid-cols-4">
           {features.map((feature) => (
-            <div
+            <li
               key={feature.title}
-              className="group rounded-2xl border border-white/5 bg-zinc-900/50 p-8 transition-all duration-300 hover:border-blue-500/30 hover:bg-zinc-900"
+              className="group bg-canvas-2 px-5 py-7 transition-colors duration-300 hover:bg-panel md:px-6 md:py-8 lg:px-8"
             >
-              <div className="mb-6 inline-flex rounded-xl bg-blue-500/10 p-4 text-blue-400 transition-colors duration-300 group-hover:bg-blue-500 group-hover:text-white">
-                <feature.icon className="size-8" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-white">{feature.title}</h3>
-              <p className="leading-relaxed text-zinc-400 group-hover:text-zinc-300">
+              <p className="font-display text-[1.75rem] leading-none font-extrabold tracking-[-0.02em] text-brand">
+                {feature.value}
+              </p>
+              <h3 className="mt-3 text-[0.95rem] leading-snug font-semibold text-white sm:text-base">
+                {feature.title}
+              </h3>
+              <p className="mt-1.5 hidden text-[0.87rem] leading-relaxed text-ink-3 transition-colors duration-300 group-hover:text-ink-2 sm:block">
                 {feature.body}
               </p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

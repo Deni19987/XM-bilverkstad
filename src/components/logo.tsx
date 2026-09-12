@@ -32,11 +32,11 @@ export function LogoMark({ className }: { className?: string }) {
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <span className={cn('flex items-center gap-2', className)}>
-      <LogoMark className="h-9 w-9 shrink-0" />
-      <span className="text-xl leading-none font-black tracking-tight whitespace-nowrap">
-        <span className="text-white">BIL</span>
-        <span className="text-zinc-400">VERKSTAD</span>
+    <span className={cn('flex items-center gap-2.5', className)}>
+      <LogoMark className="h-8 w-8 shrink-0" />
+      <span className="font-display text-[1.02rem] leading-none font-extrabold tracking-[0.02em] whitespace-nowrap uppercase">
+        <span className="text-ink">Bil</span>
+        <span className="text-ink-3">verkstad</span>
       </span>
     </span>
   )

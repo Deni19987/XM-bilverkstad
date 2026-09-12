@@ -4,39 +4,41 @@ import { site } from '@/data/site'
 
 export function ServicesSection({
   items,
-  className = 'section-padding bg-black',
+  className = 'section-padding bg-canvas',
+  heading = 'Vad det kostar hos oss',
 }: {
   items: Array<Service>
   className?: string
+  heading?: string
 }) {
   return (
     <section className={className}>
       <div className="site-container">
-        <div className="mb-16 text-center">
-          <span className="mb-2 block text-sm font-bold tracking-wider text-blue-500 uppercase">
-            Bilservice &amp; Reparationer i Haninge
-          </span>
-          <h2 className="mb-6 text-3xl font-bold text-white md:text-5xl">
-            Komplett bilverkstad i Handen
-          </h2>
-          <p className="mx-auto max-w-2xl text-xl leading-relaxed font-light text-zinc-400">
-            Från däckbyte och oljebyte till bromsbyte och felsökning – allt under ett tak
-            på {site.address.street}.
+        <div className="flex flex-wrap items-end justify-between gap-8 border-b border-hairline-strong pb-6">
+          <div>
+            <p className="eyebrow">Tjänster &amp; riktpriser</p>
+            <h2 className="display mt-3.5 text-3xl leading-none text-white md:text-[2.6rem]">
+              {heading}
+            </h2>
+          </div>
+          <p className="max-w-[34ch] pb-1 text-[0.92rem] text-ink-3">
+            Priserna gäller de vanligaste bilarna. Du får alltid ett fast pris innan
+            arbetet börjar.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 pt-11 md:gap-6 lg:grid-cols-3">
           {items.map((service) => (
             <ServiceCard key={service.slug} service={service} />
           ))}
         </div>
 
-        <p className="mt-12 text-center text-zinc-400">
-          Behöver du en annan typ av tjänst? Ring oss på{' '}
-          <a href={site.phoneHref} className="font-semibold text-blue-500 hover:underline">
+        <p className="mt-10 text-[0.88rem] text-ink-3">
+          Behöver du något annat? Ring{' '}
+          <a href={site.phoneHref} className="text-brand hover:underline">
             {site.phone}
-          </a>
-          .
+          </a>{' '}
+          så säger vi vad det kostar.
         </p>
       </div>
     </section>

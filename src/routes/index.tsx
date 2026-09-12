@@ -1,10 +1,12 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { ArrowRight, Phone } from 'lucide-react'
 
 import { AboutSection } from '@/components/sections/about-section'
+import { CarflowSection } from '@/components/sections/carflow-section'
 import { ContactSection } from '@/components/sections/contact-section'
 import { Features } from '@/components/sections/features'
+import { RecoReviews } from '@/components/sections/reco-reviews'
 import { ServicesSection } from '@/components/sections/services-section'
-import { Testimonials } from '@/components/sections/testimonials'
 import { Button } from '@/components/ui/button'
 import { featuredServices } from '@/data/services'
 import { site } from '@/data/site'
@@ -23,44 +25,108 @@ export const Route = createFileRoute('/')({
   component: HomePage,
 })
 
+const heroFacts = [
+  { label: 'Adress', value: `${site.address.street}, ${site.address.city}` },
+  { label: 'Öppet', value: 'Mån–fre 08–17' },
+  {
+    label: 'Betyg',
+    value: `${site.rating.display} av 5 · ${site.rating.count} omdömen`,
+  },
+]
+
 function Hero() {
   return (
-    <section className="relative flex h-[85vh] min-h-[600px] items-center overflow-hidden bg-black">
-      <div className="absolute inset-0 z-0">
+    <section className="relative isolate flex min-h-[560px] flex-col justify-end overflow-hidden border-b border-hairline lg:min-h-[640px]">
+      {/*
+        Fotot ligger bakom texten, inte bredvid den. Slöjan över det byter
+        riktning med skärmen: på en telefon faller texten över hela bredden,
+        så den mörknar nerifrån och upp. Från stora skärmar står texten till
+        vänster och slöjan går i sidled, vilket lämnar mekanikern och hjulet
+        fria till höger.
+      */}
+      <div className="absolute inset-0 -z-10">
         <img
           src="/images/hero.webp"
-          alt="XM Bilverkstad Haninge"
+          alt="Mekaniker byter hjul hos XM Bilverkstad i Handen"
           fetchPriority="high"
-          className="absolute inset-0 size-full object-cover opacity-60"
+          className="size-full object-cover object-[66%_45%] brightness-[0.68] saturate-[0.66] lg:object-[62%_45%] lg:brightness-[0.82] lg:saturate-[0.72]"
         />
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/90 to-transparent sm:w-[70%]" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/40" />
+        {/* Håller fotot i grafitpaletten i stället för att låta det spreta. */}
+        <div className="absolute inset-0 bg-canvas/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-canvas from-18% via-canvas/90 to-canvas/55 lg:hidden" />
+        <div className="absolute inset-0 hidden lg:block lg:bg-gradient-to-r lg:from-canvas lg:from-38% lg:via-canvas/70 lg:via-64% lg:to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 hidden h-1/3 bg-gradient-to-t from-canvas to-transparent lg:block" />
       </div>
 
-      <div className="site-container relative z-20">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 backdrop-blur-md">
-          <span className="flex size-2 animate-pulse rounded-full bg-blue-500" />
-          <span className="text-xs font-bold tracking-widest text-blue-400 uppercase">
-            Öppet för bokningar
-          </span>
-        </div>
+      <div className="site-container pt-24 pb-10 md:pt-28 lg:pt-36 lg:pb-12">
+        <p className="eyebrow">Alla märken · fast pris</p>
 
-        <h1 className="mb-6 text-4xl leading-[1.1] font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
-          Din bilverkstad i Haninge &amp; Handen
+        <h1 className="display mt-5 max-w-[18ch] text-[2.15rem] leading-[1.02] text-white text-wrap sm:text-5xl lg:text-[3.7rem]">
+          Din mekaniker i{' '}
+          <span className="text-brand">Haninge &amp;&nbsp;Handen</span>
         </h1>
 
-        <p className="mb-10 max-w-lg text-base leading-relaxed font-light text-zinc-400 md:text-xl">
-          Certifierade bilmekaniker med fasta priser. Bilservice, däckbyte, däckhotell,
-          bromsbyte och oljebyte för alla bilmärken. {site.address.street},{' '}
-          {site.address.city}.
+        <p className="mt-7 max-w-[46ch] text-lg leading-relaxed text-ink-2">
+          Vi servar, byter däck och felsöker på {site.address.street}. Du får priset innan
+          vi börjar, och nybilsgarantin påverkas inte.
         </p>
 
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <Link to="/boka">Boka Tid Online</Link>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button asChild size="lg" className="group">
+            <Link to="/boka">
+              Boka tid
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-            <Link to="/tjanster">Våra Tjänster</Link>
+          <Button asChild size="lg" variant="outline">
+            <Link to="/tjanster">Se alla priser</Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* Faktaraden ligger som en linjerad list längst ner, ovanpå fotot. */}
+      <div className="site-container">
+        <dl className="grid border-t border-white/15 sm:grid-cols-3">
+          {heroFacts.map((fact, index) => (
+            <div
+              key={fact.label}
+              className={`py-4 sm:px-7 ${
+                index === 0
+                  ? 'sm:pl-0'
+                  : 'border-t border-white/15 sm:border-t-0 sm:border-l'
+              } ${index === heroFacts.length - 1 ? 'sm:pr-0' : ''}`}
+            >
+              <dt className="numeric text-[0.7rem] tracking-[0.1em] text-ink-3 uppercase">
+                {fact.label}
+              </dt>
+              <dd className="mt-1.5 text-[0.9rem] text-ink">{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )
+}
+
+function ClosingCta() {
+  return (
+    <section className="border-t border-hairline bg-canvas-2">
+      <div className="site-container flex flex-wrap items-center justify-between gap-8 py-14">
+        <h2 className="display max-w-[20ch] text-2xl leading-tight text-white md:text-[2.1rem]">
+          Boka en tid – vi säger priset direkt
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          <Button asChild size="lg" className="group">
+            <Link to="/boka">
+              Boka tid
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <a href={site.phoneHref}>
+              <Phone className="size-4" />
+              {site.phone}
+            </a>
           </Button>
         </div>
       </div>
@@ -72,10 +138,12 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <Features />
-      <AboutSection />
+      <RecoReviews />
       <ServicesSection items={featuredServices} />
-      <Testimonials />
+      <Features />
+      <CarflowSection />
+      <AboutSection />
+      <ClosingCta />
       <ContactSection />
     </>
   )
